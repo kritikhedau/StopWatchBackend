@@ -1,5 +1,5 @@
 const express = require("express");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
 const app = express();
 const PORT = 3000;
@@ -11,6 +11,9 @@ mongoose
   .connect("mongodb://127.0.0.1:27017/stopWatch")
   .then(() => console.log("MongoDb Connected"))
   .catch((error) => console.log("Mongo Error", error));
+
+// Middleware to parse JSON
+app.use(express.json()); // This is required for req.body to work
 
 app.get("/", (req, res) => {
   res.status(200);
@@ -26,3 +29,17 @@ app.listen(PORT, (error) => {
     );
   else console.log("Error occurred, server can't start", error);
 });
+
+// //  Schema
+// const userSchema = new mongoose.Schema({
+//   firstName: {
+//     type: String,
+//     required: true,
+//   },
+//   lastName: {
+//     type: String,
+//   },
+//   email: { type: String, required: true, unique: true },
+// });
+
+// const User = mongoose.model("test", userSchema);
