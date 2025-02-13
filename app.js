@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+require("dotenv").config();
 const app = express();
 const PORT = 3000;
 const userRoute = require("./routes/user");
@@ -8,7 +8,7 @@ const userRoute = require("./routes/user");
 // mongoDb connection
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/stopWatch")
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("MongoDb Connected"))
   .catch((error) => console.log("Mongo Error", error));
 
