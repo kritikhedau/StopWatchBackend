@@ -7,10 +7,7 @@ const userRoute = require("./routes/user");
 
 // mongoDb connection
 
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log("MongoDb Connected"))
-  .catch((error) => console.log("Mongo Error", error));
+const db = require("./config/mongo-connection.js");
 
 // Middleware to parse JSON
 app.use(express.json()); // This is required for req.body to work
