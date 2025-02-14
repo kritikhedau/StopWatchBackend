@@ -10,7 +10,12 @@ async function handleUserSignup(req, res) {
       password,
     });
 
-    return res.send("Signup successful!");
+    return res.status(200).json({
+      status: "success",
+      message: "User logged in successfully!",
+      token: `Bearer ${token}`,
+      data: { name: name, email: email },
+    });
   } catch (error) {
     console.error("Signup Error:", error);
     return res.status(500).send("Something went wrong!");
