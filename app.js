@@ -14,7 +14,7 @@ app.use(express.json()); // This is required for req.body to work
 
 app.get("/", (req, res) => {
   res.status(200);
-  res.send("welcome to myssss serversssssssss");
+  res.send("welcome to lucky");
 });
 
 app.use("/user", userRoute);
