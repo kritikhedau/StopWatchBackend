@@ -17,4 +17,12 @@ async function handleUserSignup(req, res) {
   }
 }
 
-module.exports = { handleUserSignup };
+async function handleUserLogin(req, res) {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email, password });
+  if (!user) return res.send({ error: "invaild username or passowrd" });
+  return res.send("login successfull");
+}
+
+module.exports = { handleUserSignup, handleUserLogin };
