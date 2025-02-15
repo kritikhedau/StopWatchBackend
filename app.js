@@ -7,12 +7,11 @@ const userRoute = require("./routes/user");
 // mongoDb connection
 
 const db = require("./config/mongo-connection.js");
-const authenticateToken = require("./middleware/auth.js");
 
 // Middleware to parse JSON
 app.use(express.json()); // This is required for req.body to work
 
-app.get("/", authenticateToken, (req, res) => {
+app.get("/", (req, res) => {
   res.status(200);
   res.send("welcome to lucky");
 });
