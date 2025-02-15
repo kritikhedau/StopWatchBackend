@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 require("dotenv").config();
 const app = express();
 const PORT = 3000;
@@ -27,16 +26,3 @@ app.listen(PORT, (error) => {
   else console.log("Error occurred, server can't start", error);
 });
 
-// //  Schema
-// const userSchema = new mongoose.Schema({
-//   firstName: {
-//     type: String,
-//     required: true,
-//   },
-//   lastName: {
-//     type: String,
-//   },
-//   email: { type: String, required: true, unique: true },
-// });
-
-// const User = mongoose.model("test", userSchema);
