@@ -67,4 +67,10 @@ async function handleUserLogin(req, res) {
   }
 }
 
+// async function handleUserUpdate(req,res){
+//   try{
+//     const userId = req.user.userId
+//   }
+// }
+
 module.exports = { handleUserSignup, handleUserLogin };
