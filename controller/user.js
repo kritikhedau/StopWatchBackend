@@ -38,7 +38,7 @@ async function handleUserLogin(req, res) {
     const { email, password } = req.body;
 
     // Find user by email and password (plaintext matching)
-    const user = await User.findOne({ email});
+    const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(400).json({ error: "Invalid email" });
@@ -67,10 +67,42 @@ async function handleUserLogin(req, res) {
   }
 }
 
-// async function handleUserUpdate(req,res){
-//   try{
-//     const userId = req.user.userId
-//   }
-// }
+async function handleUserUpdate(req, res) {
+  try {
+    const userId = req.user.userId;
+    const { name, email, password } = req.body;
 
-module.exports = { handleUserSignup, handleUserLogin };
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    if (email && email !== user.email) {
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ error: "email is already in use" });
+      }
+      user.email = email;
+    }
+    if (name) {
+      user.name = name;
+    }
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+    }
+
+    await user.save();
+    res.status(200).json({
+      message: "User updated successfully!",
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    console.error("updated error", error);
+    res.status(500).json({ error: "Interal server error" });
+  }
+}
+
+module.exports = { handleUserSignup, handleUserLogin, handleUserUpdate };
